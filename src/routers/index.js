@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Proxies from './views/proxies'
-import Users from './views/users'
-import Stats from './views/stats'
-import Logs from './views/logs'
-import Help from './views/help'
-import Profile from './views/profile'
+import Proxies from '../views/proxies'
+import Users from '../views/users'
+import Stats from '../views/stats'
+import Logs from '../views/logs'
+import Help from '../views/help'
+import Profile from '../views/profile'
 
 Vue.use(Router)
 
