@@ -25,25 +25,25 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      github: 'https://github.com/qious/simple-proxy' // TODO 硬编码
-    }
-  },
+import { mapState } from 'vuex'
+import Api from '../api'
 
+export default {
   computed: {
     activeIndex () {
       return this.$route.name
-    }
+    },
+    ...mapState(['config'])
   },
 
   methods: {
     handleSelect (name) {
       if (name === 'github') {
-        window.location.href = this.github
+        if (this.config.github) {
+          window.location.href = this.config.github
+        }
       } else if (name === 'logout') {
-        console.log('注销登录') // TODO
+        Api('/api/wechat/logout')
       } else {
         this.$router.push(name)
       }
