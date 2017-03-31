@@ -3,8 +3,6 @@ import 'whatwg-fetch'
 import url from 'url'
 import _ from 'lodash'
 
-let status, ok
-
 let getLoginUrl = function (config) {
   let uri = 'https://qy.weixin.qq.com/cgi-bin/loginpage'
   let query = _.assign({
@@ -21,6 +19,7 @@ let handleHttpError = function (status, data) {
       location.href = getLoginUrl(data.extra)
       return true
     default:
+      alert(data.message)
       return false
   }
 }
@@ -45,22 +44,26 @@ export default function (uri, params) {
   uri = uri + url.format({query: params.query})
   params.query = undefined
 
+  let status, data
   return fetch(uri, params)
     .then((res) => {
-      ok = res.ok
       status = res.status
       return res.json()
     })
-    .then((data) => {
+    .then((res) => {
+      data = res
+
+      if (status >= 400) {
+        throw new Error(data.message)
+      }
+      return {status, data}
+    })
+    .catch(function (err) {
       if (typeof data !== 'object') {
-        data = {message: '服务器错误'}
+        data = {message: err.message}
       }
 
-      if (handleHttpError(status, data)) {
-        return {}
-      }
-      return {status, ok, data}
-    }, (err) => {
-      return {status: 500, ok: false, data: {message: err}}
+      handleHttpError(status, data)
+      throw err
     })
 }

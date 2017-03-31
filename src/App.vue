@@ -30,10 +30,6 @@ export default {
       }
 
       Api('/api/profile').then((res) => {
-        if (!res.ok) {
-          return alert(res.data.message || '网络异常，请刷新或稍后再试')
-        }
-
         this.profile = res.data
       })
     },
@@ -43,11 +39,7 @@ export default {
         return true
       }
 
-      Api('/api/conifg').then((res) => {
-        if (!res.ok) {
-          return alert(res.data.message || '网络异常，请刷新或稍后再试')
-        }
-
+      Api('/api/config').then((res) => {
         this.profile = res.data
       })
     }
