@@ -30,7 +30,7 @@ export default {
       }
 
       Api('/api/profile').then((res) => {
-        this.profile = res.data
+        this.$store.dispatch('setProfile', res.data)
       })
     },
 
@@ -40,7 +40,7 @@ export default {
       }
 
       Api('/api/config').then((res) => {
-        this.profile = res.data
+        this.$store.dispatch('setConfig', res.data)
       })
     }
   }

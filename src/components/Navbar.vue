@@ -8,7 +8,8 @@
         <el-menu-item index="logs">日志记录</el-menu-item>
         <el-submenu index="me" class="right">
           <template slot="title">
-            <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+            <i class="fa fa-user fa-lg" aria-hidden="true" v-if="!profile.avatar"></i>
+            <img class="avatar" :src="profile.avatar" v-else>
           </template>
           <el-menu-item index="profile">个人中心</el-menu-item>
           <el-menu-item index="logout">注销登录</el-menu-item>
@@ -33,7 +34,7 @@ export default {
     activeIndex () {
       return this.$route.name
     },
-    ...mapState(['config'])
+    ...mapState(['profile', 'config'])
   },
 
   methods: {
@@ -43,7 +44,7 @@ export default {
           window.location.href = this.config.github
         }
       } else if (name === 'logout') {
-        Api('/api/wechat/logout')
+        Api('/api/wechat/logout', {method: 'POST'})
       } else {
         this.$router.push(name)
       }
@@ -60,5 +61,10 @@ export default {
 }
 .right {
   float: right;
+}
+.navbar .avatar {
+  height: 20px;
+  border-radius: 50%;
+  vertical-align: middle;
 }
 </style>
