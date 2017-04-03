@@ -6,7 +6,7 @@
 export default {
   data () {
     return {
-      msg: 'stats'
+      msg: '统计分析'
     }
   }
 }

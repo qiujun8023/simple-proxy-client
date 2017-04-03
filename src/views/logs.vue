@@ -6,7 +6,7 @@
 export default {
   data () {
     return {
-      msg: 'help'
+      msg: '日志记录'
     }
   }
 }

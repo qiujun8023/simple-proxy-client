@@ -6,7 +6,7 @@
 export default {
   data () {
     return {
-      msg: 'help'
+      msg: '使用说明'
     }
   }
 }

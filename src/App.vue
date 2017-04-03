@@ -1,11 +1,14 @@
 <template>
   <div>
     <Navbar></Navbar>
-    <router-view class="container"></router-view>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import './assets/less/font-awesome.less'
 import { isEmpty } from 'lodash'
 import { mapState } from 'vuex'
 import Api from './api'
@@ -47,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 body {
   margin: 0;
   width: 100%;

@@ -6,7 +6,7 @@
 export default {
   data () {
     return {
-      msg: 'users'
+      msg: '用户管理'
     }
   }
 }

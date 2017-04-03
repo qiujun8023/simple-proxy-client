@@ -6,7 +6,7 @@
 export default {
   data () {
     return {
-      msg: 'profile'
+      msg: '用户中心'
     }
   }
 }
