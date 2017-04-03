@@ -31,7 +31,7 @@
         label="回源域名"
         sortable>
         <template scope="scope">
-          <a :href="scope.row.proxy_url">{{scope.row.domain}}</a>
+          <a :href="scope.row.proxy_url" target="_blank">{{scope.row.domain}}</a>
         </template>
       </el-table-column>
       <el-table-column
@@ -39,15 +39,16 @@
         label="回源地址"
         sortable>
         <template scope="scope">
-          <a :href="scope.row.target_url">{{scope.row.target}}</a>
+          <a :href="scope.row.target_url" target="_blank">{{scope.row.target}}</a>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         label="操作">
         <template scope="scope">
-          <el-button size="small">编辑</el-button>
-          <el-button type="danger" size="small">删除</el-button>
+          <el-button size="small" type="success">统计</el-button>
+          <el-button size="small" type="info">编辑</el-button>
+          <el-button size="small" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
