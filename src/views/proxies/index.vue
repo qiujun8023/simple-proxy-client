@@ -32,13 +32,13 @@
       <el-table-column
         align="center"
         prop="proxy_type_name"
-        label="回源方式"
+        label="访问方式"
         sortable>
       </el-table-column>
       <el-table-column
         align="center"
         prop="domain"
-        label="回源域名"
+        label="访问域名"
         sortable>
         <template scope="scope">
           <a :href="scope.row.proxy_url" target="_blank">{{scope.row.domain}}</a>

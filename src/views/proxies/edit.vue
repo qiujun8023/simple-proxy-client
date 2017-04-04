@@ -43,7 +43,7 @@
         :placeholder="form.ssl.uploaded? '已上传密钥，如需更换请输入新密钥' : '请填写密钥，可选'">
       </el-input>
     </el-form-item>
-    <el-form-item label="请求方式" prop="proxy_type" v-show="config.https_port">
+    <el-form-item label="访问方式" prop="proxy_type" v-show="config.https_port">
       <el-radio-group v-model="form.proxy_type">
         <el-radio label="HTTP_ONLY">仅 HTTP</el-radio>
         <el-radio label="HTTPS_ONLY">仅 HTTPS</el-radio>

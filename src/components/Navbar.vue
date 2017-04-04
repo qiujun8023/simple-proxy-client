@@ -8,7 +8,7 @@
         <el-menu-item index="logs">日志记录</el-menu-item>
         <el-submenu index="me" class="right">
           <template slot="title">
-            <i class="el-icon-fa-user el-icon-fa-2x" v-if="profile.avatar"></i>
+            <i class="el-icon-fa-user el-icon-fa-2x" v-if="!profile.avatar"></i>
             <img class="avatar" :src="profile.avatar" v-else>
           </template>
           <el-menu-item index="profile">个人中心</el-menu-item>
