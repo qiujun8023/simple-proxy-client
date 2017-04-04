@@ -2,6 +2,7 @@
 import 'whatwg-fetch'
 import url from 'url'
 import _ from 'lodash'
+import { Notification } from 'element-ui'
 
 let getLoginUrl = function (config) {
   let uri = 'https://qy.weixin.qq.com/cgi-bin/loginpage'
@@ -19,7 +20,10 @@ let handleHttpError = function (status, data) {
       location.href = getLoginUrl(data.extra)
       return true
     default:
-      alert(data.message)
+      Notification.error({
+        title: 'API 请求失败',
+        message: data.message
+      })
       return false
   }
 }

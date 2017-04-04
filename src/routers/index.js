@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Proxies from '../views/proxies'
+import ProxiesEdit from '../views/proxies/edit'
 import Users from '../views/users'
 import Stats from '../views/stats'
 import Logs from '../views/logs'
@@ -21,6 +22,18 @@ export default new Router({
       name: 'proxies',
       component: Proxies,
       meta: {title: '代理列表'}
+    },
+    {
+      path: '/proxies/add',
+      name: 'proxies-add',
+      component: ProxiesEdit,
+      meta: {title: '添加代理'}
+    },
+    {
+      path: '/proxies/:proxy_id/edit',
+      name: 'proxies-edit',
+      component: ProxiesEdit,
+      meta: {title: '编辑代理'}
     },
     {
       path: '/users',

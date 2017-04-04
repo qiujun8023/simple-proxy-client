@@ -6,13 +6,23 @@
         :disabled="!profile.is_admin"
         @user-choise="userChoise">
       </user-choise>
-      <el-button type="primary" icon="plus"></el-button>
+      <router-link :to="{name: 'proxies-add', query: {user_id}}">
+        <el-button type="primary" icon="fa-plus">添加</el-button>
+      </router-link>
     </div>
     <el-table
       v-loading="is_loading"
       :data="proxies"
       stripe
       border>
+      <el-table-column
+        align="center"
+        label="状态">
+        <template scope="scope">
+          <i class="el-icon-fa-toggle-on" v-if="scope.row.is_enabled"></i>
+          <i class="el-icon-fa-toggle-off" v-else></i>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         prop="mark"
@@ -46,9 +56,13 @@
         align="center"
         label="操作">
         <template scope="scope">
-          <el-button size="small" type="success">统计</el-button>
-          <el-button size="small" type="info">编辑</el-button>
-          <el-button size="small" type="danger">删除</el-button>
+          <router-link :to="{name: 'stats', query: {proxy_id: scope.row.proxy_id}}">
+            <el-button size="small" type="info">统计</el-button>
+          </router-link>
+          <router-link :to="{name: 'proxies-edit', params: {proxy_id: scope.row.proxy_id}, query: {user_id}}">
+            <el-button size="small" type="primary">编辑</el-button>
+          </router-link>
+          <el-button size="small" type="danger" @click="removeProxies(scope.$index, proxies)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -117,6 +131,22 @@ export default {
 
     userChoise (user_id) {
       this.$router.push({query: {user_id}})
+    },
+
+    removeProxies (index, proxies) {
+      let proxy = proxies[index]
+      if (!confirm(`你确定要删除 【${proxy.mark}】 吗?`)) {
+        return false
+      }
+
+      Api(`/api/proxies/${proxy.proxy_id}`, {method: 'DELETE'}).then((res) => {
+        proxies.splice(index, 1)
+        this.$notify({
+          title: '删除成功',
+          message: `已成功删除 【${proxy.mark}】`,
+          type: 'success'
+        })
+      })
     }
   },
 
@@ -131,8 +161,14 @@ export default {
 <style lang="less" scoped>
 .topbar {
   margin-bottom: 15px;
-  button {
+  a {
     float: right;
   }
+}
+.el-icon-fa-toggle-on {
+  color: #20A0FF;
+}
+.el-icon-fa-toggle-off {
+  color: #1F2D3D;
 }
 </style>
