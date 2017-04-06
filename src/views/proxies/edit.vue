@@ -27,7 +27,7 @@
       </el-col>
     </el-form-item>
     <el-form-item label="回源 Host" prop="hostname">
-      <el-input v-model="form.hostname" placeholder="HTTP Header 中的 Host，默认为请求域名"></el-input>
+      <el-input v-model="form.hostname" placeholder="HTTP Header 中的 Host，默认为访问域名"></el-input>
     </el-form-item>
     <el-form-item label="HTTPS 证书" v-show="config.https_port">
       <el-input

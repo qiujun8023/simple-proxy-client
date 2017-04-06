@@ -3,7 +3,7 @@
     <div class="container">
       <el-menu theme="dark" mode="horizontal" :default-active="activeIndex" @select="handleSelect">
         <el-menu-item index="proxies">代理列表</el-menu-item>
-        <el-menu-item index="users">用户管理</el-menu-item>
+        <el-menu-item index="users" v-show="profile.is_admin">用户管理</el-menu-item>
         <el-menu-item index="stats">统计分析</el-menu-item>
         <el-menu-item index="logs">日志记录</el-menu-item>
         <el-submenu index="me" class="right">
@@ -32,7 +32,7 @@ import Api from '../api'
 export default {
   computed: {
     activeIndex () {
-      return this.$route.name
+      return this.$route.meta.navbar_active
     },
     ...mapState(['profile', 'config'])
   },

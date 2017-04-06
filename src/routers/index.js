@@ -21,49 +21,49 @@ export default new Router({
       path: '/proxies',
       name: 'proxies',
       component: Proxies,
-      meta: {title: '代理列表'}
+      meta: {title: '代理列表', navbar_active: 'proxies'}
     },
     {
       path: '/proxies/add',
       name: 'proxies-add',
       component: ProxiesEdit,
-      meta: {title: '添加代理'}
+      meta: {title: '添加代理', navbar_active: 'proxies'}
     },
     {
       path: '/proxies/:proxy_id/edit',
       name: 'proxies-edit',
       component: ProxiesEdit,
-      meta: {title: '编辑代理'}
+      meta: {title: '编辑代理', navbar_active: 'proxies'}
     },
     {
       path: '/users',
       name: 'users',
       component: Users,
-      meta: {title: '用户管理'}
+      meta: {title: '用户管理', navbar_active: 'users'}
     },
     {
       path: '/stats',
       name: 'stats',
       component: Stats,
-      meta: {title: '统计分析'}
+      meta: {title: '统计分析', navbar_active: 'stats'}
     },
     {
       path: '/logs',
       name: 'logs',
       component: Logs,
-      meta: {title: '日志分析'}
+      meta: {title: '日志分析', navbar_active: 'logs'}
     },
     {
       path: '/profile',
       name: 'profile',
       component: Profile,
-      meta: {title: '个人中心'}
+      meta: {title: '个人中心', navbar_active: 'profile'}
     },
     {
       path: '/help',
       name: 'help',
       component: Help,
-      meta: {title: '使用说明'}
+      meta: {title: '使用说明', navbar_active: 'help'}
     }
   ]
 })
