@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+  <el-form v-loading="is_loading" ref="form" :model="form" :rules="rules" label-width="120px">
     <el-form-item label="代理名称" prop="mark">
       <el-input v-model="form.mark" placeholder="反向代理名称，便于识别与区分"></el-input>
     </el-form-item>

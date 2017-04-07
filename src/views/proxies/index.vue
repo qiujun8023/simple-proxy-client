@@ -17,7 +17,8 @@
       border>
       <el-table-column
         align="center"
-        label="状态">
+        label="状态"
+        min-width="80">
         <template scope="scope">
           <i class="el-icon-fa-toggle-on" v-if="scope.row.is_enabled"></i>
           <i class="el-icon-fa-toggle-off" v-else></i>
@@ -27,18 +28,21 @@
         align="center"
         prop="mark"
         label="名称"
+        min-width="160"
         sortable>
       </el-table-column>
       <el-table-column
         align="center"
         prop="proxy_type_name"
         label="访问方式"
+        min-width="160"
         sortable>
       </el-table-column>
       <el-table-column
         align="center"
         prop="domain"
         label="访问域名"
+        min-width="220"
         sortable>
         <template scope="scope">
           <a :href="scope.row.proxy_url" target="_blank">{{scope.row.domain}}</a>
@@ -47,6 +51,7 @@
       <el-table-column
         align="center"
         label="回源地址"
+        min-width="200"
         sortable>
         <template scope="scope">
           <a :href="scope.row.target_url" target="_blank">{{scope.row.target}}</a>
@@ -54,7 +59,8 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="操作">
+        label="操作"
+        min-width="180">
         <template scope="scope">
           <router-link :to="{name: 'stats', query: {proxy_id: scope.row.proxy_id}}">
             <el-button size="small" type="info">统计</el-button>
@@ -160,7 +166,6 @@ export default {
 
 <style lang="less" scoped>
 .topbar {
-  margin-bottom: 15px;
   a {
     float: right;
   }
@@ -170,5 +175,8 @@ export default {
 }
 .el-icon-fa-toggle-off {
   color: #1F2D3D;
+}
+.el-table {
+  margin: 15px 0;
 }
 </style>
