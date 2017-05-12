@@ -136,6 +136,7 @@ export default {
       let method = 'PUT'
       Api(`/api/users/${row.user_id}`, {method, body}).then((res) => {
         Object.assign(row, body)
+        this.$message.success(`修改成功`)
       })
     },
 

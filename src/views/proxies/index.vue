@@ -141,16 +141,15 @@ export default {
 
     removeProxies (index, proxies) {
       let proxy = proxies[index]
-      if (!confirm(`你确定要删除 【${proxy.mark}】 吗?`)) {
-        return false
-      }
-
-      Api(`/api/proxies/${proxy.proxy_id}`, {method: 'DELETE'}).then((res) => {
-        proxies.splice(index, 1)
-        this.$notify({
-          title: '删除成功',
-          message: `已成功删除 【${proxy.mark}】`,
-          type: 'success'
+      this.$confirm(`你确定要删除 【${proxy.mark}】 吗?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'el-button--danger',
+        type: 'warning'
+      }).then(() => {
+        Api(`/api/proxies/${proxy.proxy_id}`, {method: 'DELETE'}).then((res) => {
+          proxies.splice(index, 1)
+          this.$message.success(`已成功删除 【${proxy.mark}】`)
         })
       })
     }

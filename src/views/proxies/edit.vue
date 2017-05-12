@@ -200,6 +200,10 @@ export default {
     onSubmit () {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
+          this.$notify.error({
+            title: '错误',
+            message: '请检查表单是否填写完整'
+          })
           return false
         }
 
@@ -223,6 +227,8 @@ export default {
 
         Api(url, {method, body}).then((res) => {
           this.is_submit = false
+          let action = method === 'POST' ? '添加' : '更新'
+          this.$message.success(`已成功${action} 【${body.mark}】`)
           this.$router.push({name: 'proxies', query: this.$route.query})
         }).catch(() => {
           this.is_submit = false
