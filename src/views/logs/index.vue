@@ -15,36 +15,42 @@
         v-model="date"
         class="date"
         type="daterange"
+        :picker-options="pickerOptions"
+        @change="fetchData"
         placeholder="选择日期范围">
       </el-date-picker>
     </div>
-    <el-tabs type="card" class="logs" v-model="tab">
-      <el-tab-pane label="慢请求" name="slow_request">
-        <el-table v-loading="loading" v-if="tab === 'slow_request'" :data="data" stripe border>
-          <el-table-column align="center" prop="method" label="方法"></el-table-column>
-          <el-table-column align="center" prop="path" label="路径"></el-table-column>
-          <el-table-column align="center" prop="cost" label="平均耗时"></el-table-column>
+    <el-tabs type="card" class="logs" v-model="tab" @tab-click="fetchData">
+      <el-tab-pane label="慢请求" name="slow">
+        <el-table v-loading="loading" v-if="tab === 'slow'" :data="data" stripe>
+          <el-table-column align="center" prop="method" label="方法" width="100"></el-table-column>
+          <el-table-column prop="path" label="地址"></el-table-column>
+          <el-table-column align="center" prop="cost" label="平均耗时" width="130">
+            <template scope="scope">
+              {{scope.row.cost.toFixed(2)}} ms
+            </template>
+          </el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="错误请求" name="error_request">
-        <el-table v-loading="loading" v-if="tab === 'error_request'" :data="data" stripe border>
-          <el-table-column align="center" prop="method" label="方法"></el-table-column>
-          <el-table-column align="center" prop="path" label="路径"></el-table-column>
-          <el-table-column align="center" prop="status" label="状态码"></el-table-column>
-          <el-table-column align="center" prop="count" label="计次"></el-table-column>
+      <el-tab-pane label="错误请求" name="error">
+        <el-table v-loading="loading" v-if="tab === 'error'" :data="data" stripe>
+          <el-table-column align="center" prop="method" label="方法" width="100"></el-table-column>
+          <el-table-column prop="path" label="地址"></el-table-column>
+          <el-table-column align="center" prop="status" label="状态码" width="100" sortable></el-table-column>
+          <el-table-column align="center" prop="count" label="计次" width="100" sortable></el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="热门请求" name="host_request">
-        <el-table v-loading="loading" v-if="tab === 'host_request'" :data="data" stripe border>
-          <el-table-column align="center" prop="method" label="方法"></el-table-column>
-          <el-table-column align="center" prop="path" label="路径"></el-table-column>
-          <el-table-column align="center" prop="count" label="计次"></el-table-column>
+      <el-tab-pane label="热门请求" name="hot">
+        <el-table v-loading="loading" v-if="tab === 'hot'" :data="data" stripe>
+          <el-table-column align="center" prop="method" label="方法" width="100"></el-table-column>
+          <el-table-column prop="path" label="地址"></el-table-column>
+          <el-table-column align="center" prop="count" label="计次" width="100"></el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="热门IP" name="host_ip">
-        <el-table v-loading="loading" v-if="tab === 'host_ip'" :data="data" stripe border>
-          <el-table-column align="center" prop="ip" label="IP"></el-table-column>
-          <el-table-column align="center" prop="count" label="计次"></el-table-column>
+      <el-tab-pane label="热门IP" name="hot_ip">
+        <el-table v-loading="loading" v-if="tab === 'hot_ip'" :data="data" stripe>
+          <el-table-column align="center" prop="ip" label="IP" sortable></el-table-column>
+          <el-table-column align="center" prop="count" label="计次" sortable></el-table-column>
         </el-table>
       </el-tab-pane>
     </el-tabs>
@@ -53,8 +59,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import {getDiffDays} from '../../libs/utils'
 import UserChoise from '../../components/UserChoise'
 import ProxyChoise from '../../components/ProxyChoise'
+import Api from '../../api'
 
 export default {
   components: {
@@ -69,7 +77,13 @@ export default {
         new Date()
       ],
       data: [],
-      tab: 'slow_request'
+      tab: 'slow',
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now()
+        }
+      },
+      loading: false
     }
   },
 
@@ -83,34 +97,37 @@ export default {
     ...mapState(['profile'])
   },
 
+  created () {
+    this.fetchData()
+  },
+
   methods: {
     userChoise (user_id) {
       this.$router.push({query: {user_id}})
+      this.fetchData()
     },
 
     proxyChoise (proxy_id) {
       let query = Object.assign({}, this.$route.query, {proxy_id})
       this.$router.push({query})
+      this.fetchData()
     },
 
     fetchData () {
-
-    },
-
-    fetchSlowRequest () {
-
-    },
-
-    fetchErrorRequest () {
-
-    },
-
-    fetchHotRequest () {
-
-    },
-
-    fetchHotIp () {
-
+      let query = {
+        end_day: getDiffDays(this.date[0]) + 1,
+        start_day: getDiffDays(this.date[1]),
+        user_id: this.user_id,
+        proxy_id: this.proxy_id
+      }
+      this.data = []
+      this.loading = true
+      Api(`/api/logs/${this.tab}`, {query}).then(({data}) => {
+        this.loading = false
+        this.data = data
+      }).catch(() => {
+        this.loading = false
+      })
     }
   }
 }

@@ -11,3 +11,8 @@ exports.isIP = function (val) {
 exports.isPort = function (val) {
   return val && val >= 0 && val <= 65535
 }
+
+exports.getDiffDays = function (t1, t2) {
+  t2 = t2 || new Date()
+  return Math.floor((t2.getTime() - t1.getTime()) / 8.64e7)
+}

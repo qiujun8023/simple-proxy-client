@@ -3,6 +3,7 @@
     v-model="input"
     v-loading="loading"
     :filterable="true"
+    :clearable="true"
     @change="handleChange"
     placeholder="请选择代理">
     <el-option
