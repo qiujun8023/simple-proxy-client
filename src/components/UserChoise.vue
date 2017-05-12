@@ -39,7 +39,7 @@ export default {
 
     handleSelect (item) {
       this.input = item.user_id
-      this.$emit('user-choise', item.user_id)
+      this.$emit('choise', item.user_id)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-form v-loading="is_loading" ref="form" :model="form" :rules="rules" label-width="120px">
+  <el-form v-loading="loading.fetch" ref="form" :model="form" :rules="rules" label-width="120px">
     <el-form-item label="代理名称" prop="mark">
       <el-input v-model="form.mark" placeholder="反向代理名称，便于识别与区分"></el-input>
     </el-form-item>
@@ -54,10 +54,10 @@
       <el-switch on-text="开" off-text="关" v-model="form.is_enabled"></el-switch>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" :loading="is_submit" @click="onSubmit">
+      <el-button type="primary" :loading="loading.submit" @click="onSubmit">
         {{this.proxy_id ? '提交更新' : '立即创建'}}
       </el-button>
-      <router-link :to="{name: 'proxies', query: $route.query}" v-show="!is_submit">
+      <router-link :to="{name: 'proxies', query: $route.query}" v-show="!loading.submit">
         <el-button>取消</el-button>
       </router-link>
     </el-form-item>
@@ -149,9 +149,10 @@ export default {
           { type: 'boolean', required: true, message: '请选择是否启用', trigger: 'change' }
         ]
       },
-      is_loading: false,
-      is_submit: false,
-      proxy: {}
+      loading: {
+        fetch: false,
+        submit: false
+      }
     }
   },
 
@@ -172,7 +173,7 @@ export default {
         return false
       }
 
-      this.is_loading = true
+      this.loading.fetch = true
       Api(`/api/proxies/${proxy_id}`).then((res) => {
         let tmp = res.data.target.split(':', 2)
         let default_port = res.data.target_type === 'HTTP' ? '80' : '443'
@@ -183,9 +184,9 @@ export default {
           res.data.proxy_type = 'HTTP_ONLY'
         }
         this.form = res.data
-        this.is_loading = false
+        this.loading.fetch = false
       }).catch(() => {
-        this.is_loading = false
+        this.loading.fetch = false
       })
     },
 
@@ -207,7 +208,7 @@ export default {
           return false
         }
 
-        this.is_submit = true
+        this.loading.submit = true
         let method = 'POST'
         let url = '/api/proxies'
         let body = Object.assign({}, this.form)
@@ -226,12 +227,12 @@ export default {
         }
 
         Api(url, {method, body}).then((res) => {
-          this.is_submit = false
+          this.loading.submit = false
           let action = method === 'POST' ? '添加' : '更新'
           this.$message.success(`已成功${action} 【${body.mark}】`)
           this.$router.push({name: 'proxies', query: this.$route.query})
         }).catch(() => {
-          this.is_submit = false
+          this.loading.submit = false
         })
       })
     }

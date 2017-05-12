@@ -2,7 +2,7 @@
   <div>
     <el-input v-model="filter" icon="fa-filter" placeholder="请输入内容"></el-input>
     <el-table
-      v-loading="is_loading"
+      v-loading="loading"
       :data="data"
       stripe
       border>
@@ -96,7 +96,7 @@ import Api from '../../api'
 export default {
   data () {
     return {
-      is_loading: false,
+      loading: false,
       filter: '',
       users: []
     }
@@ -123,12 +123,12 @@ export default {
 
   methods: {
     fetchUsers () {
-      this.is_loading = true
+      this.loading = true
       Api('/api/users').then((res) => {
-        this.is_loading = false
+        this.loading = false
         this.users = res.data
       }).catch(() => {
-        this.is_loading = false
+        this.loading = false
       })
     },
 

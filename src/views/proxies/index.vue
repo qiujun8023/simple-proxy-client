@@ -4,14 +4,14 @@
       <user-choise
         :value="user_id"
         :disabled="!profile.is_admin"
-        @user-choise="userChoise">
+        @choise="userChoise">
       </user-choise>
       <router-link :to="{name: 'proxies-add', query: {user_id}}">
         <el-button type="primary" icon="fa-plus">添加</el-button>
       </router-link>
     </div>
     <el-table
-      v-loading="is_loading"
+      v-loading="loading"
       :data="proxies"
       stripe
       border>
@@ -81,15 +81,15 @@ import Api from '../../api'
 import UserChoise from '../../components/UserChoise'
 
 export default {
-  data () {
-    return {
-      is_loading: false,
-      proxies: []
-    }
-  },
-
   components: {
     UserChoise
+  },
+
+  data () {
+    return {
+      loading: false,
+      proxies: []
+    }
   },
 
   computed: {
@@ -105,10 +105,10 @@ export default {
 
   methods: {
     fetchProxies () {
-      this.is_loading = true
+      this.loading = true
       let user_id = this.user_id
       Api('/api/proxies', {query: {user_id}}).then((res) => {
-        this.is_loading = false
+        this.loading = false
         for (let item of res.data) {
           item.target_url = item.target_type.toLowerCase() + '://' + item.target
           if (item.proxy_type === 'HTTP_ONLY') {
@@ -131,7 +131,7 @@ export default {
         }
         this.proxies = res.data
       }).catch(() => {
-        this.is_loading = false
+        this.loading = false
       })
     },
 
