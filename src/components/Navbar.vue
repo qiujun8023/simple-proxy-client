@@ -11,14 +11,10 @@
             <i class="el-icon-fa-user el-icon-fa-2x" v-if="!profile.avatar"></i>
             <img class="avatar" :src="profile.avatar" v-else>
           </template>
-          <el-menu-item index="profile">个人中心</el-menu-item>
           <el-menu-item index="logout">注销登录</el-menu-item>
         </el-submenu>
         <el-menu-item class="right" index="github">
           <i class="el-icon-fa-github el-icon-fa-2x" aria-hidden="true"></i>
-        </el-menu-item>
-        <el-menu-item class="right" index="help">
-          <i class="el-icon-fa-book el-icon-fa-2x" aria-hidden="true"></i>
         </el-menu-item>
       </el-menu>
     </div>

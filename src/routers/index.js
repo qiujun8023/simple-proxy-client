@@ -5,8 +5,6 @@ import ProxiesEdit from '../views/proxies/edit'
 import Users from '../views/users'
 import Stats from '../views/stats'
 import Logs from '../views/logs'
-import Help from '../views/help'
-import Profile from '../views/profile'
 
 Vue.use(Router)
 
@@ -52,18 +50,6 @@ export default new Router({
       name: 'logs',
       component: Logs,
       meta: {title: '日志分析', navbar_active: 'logs'}
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: Profile,
-      meta: {title: '个人中心', navbar_active: 'profile'}
-    },
-    {
-      path: '/help',
-      name: 'help',
-      component: Help,
-      meta: {title: '使用说明', navbar_active: 'help'}
     }
   ]
 })

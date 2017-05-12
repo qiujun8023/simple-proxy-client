@@ -66,7 +66,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { isDomain, isIP, isPort } from '../../lib/utils'
+import { isDomain, isIP, isPort } from '../../libs/utils'
 import Api from '../../api'
 
 export default {
