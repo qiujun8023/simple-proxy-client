@@ -16,3 +16,16 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+## 界面截图
+
+#### 代理列表
+
+![proxy](readme/imgs/proxy.gif)
+
+#### 数据统计
+
+![stats](readme/imgs/stats.gif)
+
+#### 日志记录
+
+![logs](readme/imgs/logs.gif)
