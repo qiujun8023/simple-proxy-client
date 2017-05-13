@@ -34,7 +34,6 @@ export default {
       if (this.loading) {
         return false
       }
-      console.log(this.data)
 
       let data = {time: [], flow: [], request: []}
       for (let item of this.data) {
