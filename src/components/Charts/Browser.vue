@@ -36,7 +36,7 @@ export default {
 
       let data = []
       for (let item of this.data) {
-        if (item.status === '200') {
+        if (item.name === 'UNKNOWN') {
           continue
         }
         data.push({
