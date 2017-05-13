@@ -20,7 +20,7 @@
         placeholder="选择日期范围">
       </el-date-picker>
     </div>
-    <el-tabs type="card" class="logs" v-model="tab" @tab-click="fetchData">
+    <el-tabs type="card" class="content" v-model="tab" @tab-click="fetchData">
       <el-tab-pane label="慢请求" name="slow">
         <el-table v-loading="loading" v-if="tab === 'slow'" :data="data" stripe>
           <el-table-column align="center" prop="method" label="方法" width="100"></el-table-column>
@@ -114,6 +114,10 @@ export default {
     },
 
     fetchData () {
+      if (!this.date || !this.date.length) {
+        return false
+      }
+
       let query = {
         end_day: getDiffDays(this.date[0]) + 1,
         start_day: getDiffDays(this.date[1]),
@@ -134,12 +138,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.topbar {
-  .date {
-    float: right;
-  }
-}
 .logs {
-  margin-top: 20px;
+  .topbar {
+    .date {
+      float: right;
+    }
+  }
+  .content {
+    margin-top: 20px;
+  }
 }
 </style>

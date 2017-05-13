@@ -60,10 +60,13 @@
       <el-table-column
         align="center"
         label="操作"
-        min-width="180">
+        width="240">
         <template scope="scope">
-          <router-link :to="{name: 'stats', query: {proxy_id: scope.row.proxy_id}}">
+          <router-link :to="{name: 'stats', query: {user_id, proxy_id: scope.row.proxy_id}}">
             <el-button size="small" type="info">统计</el-button>
+          </router-link>
+          <router-link :to="{name: 'logs', query: {user_id, proxy_id: scope.row.proxy_id}}">
+            <el-button size="small" type="info">日志</el-button>
           </router-link>
           <router-link :to="{name: 'proxies-edit', params: {proxy_id: scope.row.proxy_id}, query: {user_id}}">
             <el-button size="small" type="primary">编辑</el-button>

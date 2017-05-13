@@ -16,3 +16,14 @@ exports.getDiffDays = function (t1, t2) {
   t2 = t2 || new Date()
   return Math.floor((t2.getTime() - t1.getTime()) / 8.64e7)
 }
+
+exports.getColors = function () {
+  return [
+    'rgba(54, 162, 235, 0.8)',
+    'rgba(255, 99, 132, 0.8)',
+    'rgba(255, 206, 86, 0.8)',
+    'rgba(75, 192, 192, 0.8)',
+    'rgba(19, 206, 102, 0.8)',
+    'rgba(255, 159, 64, 0.8)'
+  ]
+}
