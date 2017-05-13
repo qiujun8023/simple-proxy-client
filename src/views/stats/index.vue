@@ -42,7 +42,7 @@
           <os-chart :data="data.os" :loading="loading.os"></os-chart>
         </el-col>
         <el-col :span="8">
-          <status-chart :data="data.status" :loading="loading.status"></status-chart>
+          <browser-chart :data="data.browser" :loading="loading.browser"></browser-chart>
         </el-col>
       </el-row>
     </div>
@@ -59,7 +59,7 @@ import SpeedChart from '../../components/Charts/Speed'
 import RegionChart from '../../components/Charts/Region'
 import CityChart from '../../components/Charts/City'
 import IspChart from '../../components/Charts/Isp'
-import StatusChart from '../../components/Charts/Status'
+import BrowserChart from '../../components/Charts/Browser'
 import DeviceChart from '../../components/Charts/Device'
 import OsChart from '../../components/Charts/Os'
 import Api from '../../api'
@@ -73,7 +73,7 @@ export default {
     RegionChart,
     CityChart,
     IspChart,
-    StatusChart,
+    BrowserChart,
     DeviceChart,
     OsChart
   },
@@ -97,7 +97,7 @@ export default {
         isp: [],
         device: [],
         os: [],
-        status: []
+        browser: []
       },
       loading: {
         flow: false,
@@ -107,7 +107,7 @@ export default {
         isp: false,
         device: false,
         os: false,
-        status: false
+        browser: false
       }
     }
   },

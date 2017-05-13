@@ -63,7 +63,7 @@ export default {
           {
             name: '访问来源',
             type: 'pie',
-            radius: '55%',
+            radius: '50%',
             center: ['50%', '60%'],
             data: data.slice(0, 30),
             itemStyle: {
