@@ -50,6 +50,8 @@
       <el-tab-pane label="热门IP" name="hot_ip">
         <el-table v-loading="loading" v-if="tab === 'hot_ip'" :data="data" stripe>
           <el-table-column align="center" prop="ip" label="IP" sortable></el-table-column>
+          <el-table-column align="center" prop="region" label="地区" sortable></el-table-column>
+          <el-table-column align="center" prop="city" label="城市" sortable></el-table-column>
           <el-table-column align="center" prop="count" label="计次" sortable></el-table-column>
         </el-table>
       </el-tab-pane>
