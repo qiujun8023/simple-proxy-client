@@ -44,7 +44,7 @@ export default {
           name: item.name + ' ' + item.version
         })
       }
-      data.sort((a, b) => a.value - b.value)
+      data.sort((a, b) => b.value - a.value)
       if (!data.length) {
         data.push({value: 1, name: '暂无数据'})
       }
